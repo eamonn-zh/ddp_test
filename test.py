@@ -39,13 +39,16 @@ if __name__=="__main__":
     input_size = 5
     batch_size = 30
 
+    # get the process rank and the world size
+    print("Init nccl group")
+    dist.init_process_group(backend="nccl", init_method="env://")
+
+    rank = dist.get_rank()
+    world_size = dist.get_world_size()
+
     # prepare the dataset
     print("Init dataset")
     dataset = RandomDataset(input_size)
-
-    # get the process rank and the world size
-    rank = dist.get_rank()
-    world_size = dist.get_world_size()
 
     print("Init dataset sampler")
     train_sampler = torch.utils.data.distributed.DistributedSampler(dataset)
@@ -56,8 +59,7 @@ if __name__=="__main__":
     print("Init model")
     model = Model(input_size)
     
-    print("Init nccl group")
-    dist.init_process_group(backend="nccl", init_method="env://")
+    
 
     device = torch.device('cuda', rank)
     model = model.to(device)
