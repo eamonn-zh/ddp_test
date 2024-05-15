@@ -5,7 +5,7 @@ git clone https://github.com/eamonn-zh/ddp_test.git  # pull the code
 
 cd ddp_test
 
-pip install torch torchvision torchaudio  # install the latest pytorch
+pip install torch tqdm  # install the package
 
 python -m torch.distributed.launch --nproc_per_node=2  test.py  # run the code using 2 GPUs
 ```
