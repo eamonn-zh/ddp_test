@@ -45,6 +45,7 @@ if __name__=="__main__":
 
     rank = dist.get_rank()
     world_size = dist.get_world_size()
+    print(f"Word size: {world_size}")
 
     # prepare the dataset
     print("Init dataset")
